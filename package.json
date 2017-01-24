@@ -1,7 +1,7 @@
 {
-  "name": "name-here",
+  "name": "myMDB",
   "version": "0.0.1",
-  "description": "description-here",
+	"description": "The \"my Movie Database.\" An online movie-ranking database that's perfect - because they're your rankings.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/samvk/name-here"
+	  "url": "https://github.com/samvk/myMDB"
   },
   "author": "Sam Kauffman",
   "license": "MIT",
