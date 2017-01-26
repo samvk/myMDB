@@ -1,7 +1,9 @@
 sass/.sass-cache/*
 css/style.css.map
+
 .htaccess
 
+php/config.php
 
 #Dev node_modules
 
