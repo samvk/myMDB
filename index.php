@@ -88,7 +88,9 @@ require_once "php/dbconnection.php";
 		<form action="php/movies.php" method="post">
 			<p><input type="text" name="title"></p>
 			<p><textarea name="review"></textarea></p>
-			<button type="submit">Add</button>
+			<p><input type="radio" name="action" value="insert" checked>Add</p>
+			<p><input type="radio" name="action" value="delete">Delete</p>
+			<button type="submit">Run</button>
 		</form>
 	</div>
 
