@@ -2,18 +2,20 @@
 
 require_once "dbconnection.php";
 
-$title = trim($_POST["title"]) ?? "";
-$review = trim($_POST["review"]) ?? "";
-$action = $_POST["action"] ?? "";
-//temp values
-$imdb = "82"; //might need to change type from INT to DECIMAL (or similar)
-$poster = "https://images-na.ssl-images-amazon.com/images/M/MV5BYzgyYzc4Y2QtNDcyZS00NDdmLWI5ZTYtMTQ2YWU5MWFhOTE4XkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg";
-$rank = "6";
+if ( $_SERVER["REQUEST_METHOD"] == "POST" ){
+	$title = trim($_POST["title"]) ?? "";
+	$review = trim($_POST["review"]) ?? "";
+	$action = $_POST["action"] ?? "";
+	//temp values
+	$imdb = "82"; //might need to change type from INT to DECIMAL (or similar)
+	$poster = "https://images-na.ssl-images-amazon.com/images/M/MV5BYzgyYzc4Y2QtNDcyZS00NDdmLWI5ZTYtMTQ2YWU5MWFhOTE4XkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg";
+	$rank = "6";
 
 
-if ( empty($title) || ( empty($review) && $action =="insert" ) ) {
-	echo "<p class='loud'>Oops! you left some required fields blank.</p>";
-	exit;
+	if ( empty($title) || ( empty($review) && $action =="insert" ) ) {
+		echo "<p class='loud'>Oops! you left some required fields blank.</p>";
+		exit;
+	}
 }
 
 
@@ -47,11 +49,18 @@ class moviesList {
 			":title" => $title
 		]);
 	}
+	
+	public static function foreachMovie($input){
+		global $db;
+		foreach($db->query("SELECT * FROM movies") as $movie) {
+			echo $input;
+		}
+	}
 }
 
 if ($action == "insert") {
 	moviesList::insert($title, $review, $imdb, $poster, $rank);
-} else {
+} elseif ($action == "delete") {
 	moviesList::delete($title);
 }
 

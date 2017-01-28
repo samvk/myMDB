@@ -61,7 +61,7 @@ require_once "php/dbconnection.php";
 		
 		<?php foreach($db->query("SELECT * FROM movies") as $movie): ?>
 
-		<article class="movie" style="outline: 4px dashed red">
+		<!--<article class="movie" style="outline: 4px dashed red">
 			<section class="movie__banner">
 				<div class="banner__rank"><p><?php echo $movie["rank"] ?></p></div>
 				<div class="banner__title"><p><?php echo $movie["title"] ?></p></div>
@@ -76,11 +76,32 @@ require_once "php/dbconnection.php";
 					<p><?php echo $movie["review"] ?></p>
 				</div>
 			</section>
-		</article>
+		</article>-->
 
 		<?php endforeach; ?>
 		
-		
+		<?php
+		include_once "php/movies.php";
+
+		moviesList::foreachMovie(
+			"<article class='movie' style='outline: 4px dashed red'>
+				<section class='movie__banner'>
+					<div class='banner__rank'><p>{$movie['rank']}<p></div>
+					<div class='banner__title'><p>{$movie['title']}</p></div>
+					<div class='banner__imdb'>{$movie['imdb']}</div>
+				</section>
+
+				<section class='movie__details'>
+					<div class='details__poster'>
+						<img src='{$movie['poster']}' alt='Poster not found!' title='{$movie['title']}'>
+					</div>
+					<div class='details__review'>
+						<p>{$movie['review']}</p>
+					</div>
+				</section>
+			</article>"
+		);
+		?>
 		
 	</div>
 	
