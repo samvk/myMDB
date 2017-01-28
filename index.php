@@ -25,6 +25,12 @@ require_once "php/dbconnection.php";
 	<!-- Custom CSS -->
 	<link href="css/style.css" rel="stylesheet">
 
+	<style>
+		body {
+			background: lightgrey;
+		}
+	</style>
+
 </head>
 
 <body>
