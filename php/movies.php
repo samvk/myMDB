@@ -14,6 +14,31 @@ if ( empty($title) || empty($review) ) {
 	exit;
 }
 
+
+class moviesList {
+	public static function insert($title, $review, $imdb, $poster, $rank) {
+		global $db;
+		
+		$stmt = $db->prepare(
+			"INSERT INTO movies(title, review, imdb, poster, rank)
+			VALUES (:title, :review, :imdb, :poster, :rank)"
+		);
+		
+		$stmt->execute([
+			":title" => $title,
+			":review" => $review,
+			":imdb" => $imdb,
+			":poster" => $poster,
+			":rank" => $rank
+		]);
+	}
+}
+
+moviesList::insert($title, $review, $imdb, $poster, $rank);
+
+echo "<br><a href='https://localhost/myMDB/'>GO HOME</a>";
+
+/*
 $stmt = $db->prepare(
 	"INSERT INTO movies(title, review, imdb, poster, rank)
 	VALUES (:title, :review, :imdb, :poster, :rank)"
@@ -26,7 +51,7 @@ $stmt->execute([
 	":poster" => $poster,
 	":rank" => $rank
 ]);
-
+*/
 
 //add title and review to database (create)
 //also add all other imdb details to database? (or should these be dynamically generated)
