@@ -17,6 +17,8 @@ if ( empty($title) || ( empty($review) && $action =="insert" ) ) {
 
 include "moviesClass.php";
 
+use \samvk\Movies;
+
 if ($action == "insert") {
 	Movies::insert($title, $review, $imdb, $poster, $rank);
 } elseif ($action == "delete") {

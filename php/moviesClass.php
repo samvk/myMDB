@@ -1,4 +1,6 @@
 <?php
+namespace samvk;
+
 require_once "dbconnection.php";
 
 class Movies {

@@ -38,7 +38,7 @@ require_once "php/dbconnection.php";
 	<div class="app">
 
 		<!-- temp example -->
-		<article class="movie">
+		<!--<article class="movie">
 			<section class="movie__banner">
 				<div class="banner__rank"><p>12</p></div>
 				<div class="banner__title"><p>Monty Python and the Holy Grail</p></div>
@@ -55,16 +55,16 @@ require_once "php/dbconnection.php";
 					</p>
 				</div>
 			</section>
-		</article>
-
+		</article>-->
 
 
 		<?php
 		include_once "php/moviesClass.php";
-		Movies::forevery(function ($movie) {
+		\samvk\Movies::forevery(function ($movie) {
 			echo
 				"<article class='movie' style='outline: 4px dashed red'>
 					<section class='movie__banner'>
+						<div class='banner__id'><p>{$movie['id']}<//div>
 						<div class='banner__rank'><p>{$movie['rank']}<//div>
 						<div class='banner__title'><p>{$movie['title']}</p></div>
 						<div class='banner__imdb'>{$movie['imdb']}</div>
