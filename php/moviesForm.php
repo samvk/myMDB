@@ -5,10 +5,12 @@ if ( $_SERVER["REQUEST_METHOD"] == "POST" ){
 	$review = trim($_POST["review"]) ?? "";
 	$action = $_POST["action"] ?? "";
 	//temp values
-	$imdb = "82"; //might need to change type from INT to DECIMAL (or similar)
+	$imdb = "N/A"; //might need to change type from INT to DECIMAL (or similar)
 	$poster = "https://images-na.ssl-images-amazon.com/images/M/MV5BYzgyYzc4Y2QtNDcyZS00NDdmLWI5ZTYtMTQ2YWU5MWFhOTE4XkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg";
 	$rank = "6";
 }
+
+echo "<br><a href='https://localhost/myMDB/'>GO HOME</a>";
 
 if ( empty($title) || ( empty($review) && $action =="insert" ) ) {
 	echo "<p class='loud'>Oops! you left some required fields blank.</p>";
@@ -26,8 +28,6 @@ if ($action == "insert") {
 } elseif ($action == "update") {
 	Movies::update($title, $review);
 }
-
-echo "<br><a href='https://localhost/myMDB/'>GO HOME</a>";
 
 
 //Need error handling.

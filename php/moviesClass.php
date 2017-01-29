@@ -1,5 +1,6 @@
 <?php
 namespace samvk;
+use \PDO;
 
 require_once "dbconnection.php";
 
@@ -27,8 +28,15 @@ class Movies {
 	public static function forevery($callback) {
 		global $db;
 
-		foreach($db->query("SELECT * FROM movies") as $movie) {
-			$callback($movie);
+		$stmt = $db->query("SELECT * FROM movies");
+		$movies = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+		if (!$movies) {
+			$callback(true, null);
+		} else {
+			foreach($movies as $movie) {
+				$callback(null, $movie);
+			}
 		}
 	}
 

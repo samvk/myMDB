@@ -60,7 +60,11 @@ require_once "php/dbconnection.php";
 
 		<?php
 		include_once "php/moviesClass.php";
-		\samvk\Movies::forevery(function ($movie) {
+		\samvk\Movies::forevery(function ($error, $movie) {
+			if ($error) {
+				echo "<div><p class='bold'>Time to add your first movie!</p></div>";
+				return;
+			}
 			echo
 				"<article class='movie' style='outline: 4px dashed red'>
 					<section class='movie__banner'>
