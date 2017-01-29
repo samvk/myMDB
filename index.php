@@ -36,7 +36,7 @@ require_once "php/dbconnection.php";
 <body>
 
 	<div class="app">
-		
+
 		<!-- temp example -->
 		<article class="movie">
 			<section class="movie__banner">
@@ -44,7 +44,7 @@ require_once "php/dbconnection.php";
 				<div class="banner__title"><p>Monty Python and the Holy Grail</p></div>
 				<div class="banner__imdb">97</div>
 			</section>
-			
+
 			<section class="movie__details">
 				<div class="details__poster">
 					<img src="https://images-na.ssl-images-amazon.com/images/M/MV5BYzgyYzc4Y2QtNDcyZS00NDdmLWI5ZTYtMTQ2YWU5MWFhOTE4XkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg" alt="Poster not found!" title="Monty Python and the Holy Grail">
@@ -56,12 +56,12 @@ require_once "php/dbconnection.php";
 				</div>
 			</section>
 		</article>
-		
-		
-		
+
+
+
 		<?php foreach($db->query("SELECT * FROM movies") as $movie): ?>
 
-		<!--<article class="movie" style="outline: 4px dashed red">
+		<article class="movie" style="outline: 4px dashed red">
 			<section class="movie__banner">
 				<div class="banner__rank"><p><?php echo $movie["rank"] ?></p></div>
 				<div class="banner__title"><p><?php echo $movie["title"] ?></p></div>
@@ -76,41 +76,20 @@ require_once "php/dbconnection.php";
 					<p><?php echo $movie["review"] ?></p>
 				</div>
 			</section>
-		</article>-->
+		</article>
 
 		<?php endforeach; ?>
-		
-		<?php
-		include_once "php/movies.php";
 
-		moviesList::foreachMovie(
-			"<article class='movie' style='outline: 4px dashed red'>
-				<section class='movie__banner'>
-					<div class='banner__rank'><p>{$movie['rank']}<p></div>
-					<div class='banner__title'><p>{$movie['title']}</p></div>
-					<div class='banner__imdb'>{$movie['imdb']}</div>
-				</section>
 
-				<section class='movie__details'>
-					<div class='details__poster'>
-						<img src='{$movie['poster']}' alt='Poster not found!' title='{$movie['title']}'>
-					</div>
-					<div class='details__review'>
-						<p>{$movie['review']}</p>
-					</div>
-				</section>
-			</article>"
-		);
-		?>
-		
 	</div>
-	
+
 	<div class="submit">
-		<form action="php/movies.php" method="post">
-			<p><input type="text" name="title"></p>
-			<p><textarea name="review"></textarea></p>
-			<p><input type="radio" name="action" value="insert" checked>Add</p>
-			<p><input type="radio" name="action" value="delete">Delete</p>
+		<form action="php/moviesForm.php" method="post">
+			<p><label><input type="text" name="title"></label></p>
+			<p><label><textarea name="review"></textarea></label></p>
+			<p><label><input type="radio" name="action" value="insert" checked>Add</label></p>
+			<p><label><input type="radio" name="action" value="delete">Delete</label></p>
+			<p><label><input type="radio" name="action" value="update">Update</label></p>
 			<button type="submit">Run</button>
 		</form>
 	</div>
