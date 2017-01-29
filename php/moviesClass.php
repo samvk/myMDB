@@ -21,6 +21,15 @@ class Movies {
 		]);
 	}
 
+	//READ
+	public static function forevery($callback) {
+		global $db;
+
+		foreach($db->query("SELECT * FROM movies") as $movie) {
+			$callback($movie);
+		}
+	}
+
 	//UPDATE
 	public static function update($title, $review){
 		global $db;
@@ -42,11 +51,9 @@ class Movies {
 
 		$stmt = $db->prepare(
 			"DELETE FROM movies
-			WHERE title = :title"
+			WHERE title = ?"
 		);
 
-		$stmt->execute([
-			":title" => $title
-		]);
+		$stmt->execute([$title]);
 	}
 }

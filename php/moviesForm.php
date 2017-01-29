@@ -15,7 +15,7 @@ if ( empty($title) || ( empty($review) && $action =="insert" ) ) {
 	exit;
 }
 
-include "moviesList.php";
+include "moviesClass.php";
 
 if ($action == "insert") {
 	Movies::insert($title, $review, $imdb, $poster, $rank);
