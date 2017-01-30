@@ -68,16 +68,17 @@
 
 	//let data = {};
 
-	var ajaxHandler = {
-		url: url,
-		method: method,
-		data: $moviesForm.serialize()
-	};
-
-	var ajax = new _simpleAjax2.default(ajaxHandler);
 
 	$moviesForm.submit(function (e) {
 		e.preventDefault();
+
+		var data = $(this).serialize();
+
+		var ajax = new _simpleAjax2.default({
+			url: url,
+			method: method,
+			data: data
+		});
 
 		ajax.on("success", function (event) {
 			console.log(event);
