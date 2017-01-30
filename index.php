@@ -90,7 +90,7 @@ require_once "php/dbconnection.php";
 	</div>
 
 	<div class="submit">
-		<form action="php/moviesForm.php" method="post">
+		<form id="movies-form" action="php/moviesForm.php" method="post">
 			<p><label><input type="text" name="title"></label></p>
 			<p><label><textarea name="review"></textarea></label></p>
 			<p><label><input type="radio" name="action" value="insert" checked>Add</label></p>
@@ -103,6 +103,7 @@ require_once "php/dbconnection.php";
 <!--**************************************************-->
 
 	<!-- Javascript -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<script src="dist/app.js"></script>
 
 </body>

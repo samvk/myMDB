@@ -11,7 +11,7 @@ const config = {
 		loaders: [
 			{
 				test: /\.js$/,
-				loaders: ["babel"]   // babelify
+				loaders: ["babel-loader"]   // babelify
 			}
 		]
 	},
