@@ -5,26 +5,41 @@ import Ajax from "simple-ajax";
 
 const $moviesForm = $("#movies-form");
 
+function listMovies() {
+	let getMovie = new Ajax({
+		url: "views/movie.php",
+		method: "GET"
+	});
+
+	getMovie.on("success", event => {
+		$("#movies-list").replaceWith(event.target.response);
+	}).on("error", console.error
+	).send();
+};
+
 const url = $moviesForm.attr("action");
 const method = $moviesForm.attr("method");
 
-$moviesForm.submit(function(e){
-	e.preventDefault();
-
-	let data = $(this).serialize();
-
-	let ajax = new Ajax({
+function addAndListMovies(data){
+	let postMovie = new Ajax({
 		url: url,
 		method: method,
 		data: data,
 		contentType: "application/x-www-form-urlencoded",
 	});
 
-	ajax.on("success", event => {
+	postMovie.on("success", event => {
 		console.log(event.target.response);
-		$("body").append(event.target.response);
-	})
-		.on("error", console.error
-	)
-		.send();
+	}).on("error", console.error
+		 ).on("complete", ()=> {
+		$moviesForm[0].reset();
+		listMovies();
+	}).send();
+}
+
+$moviesForm.submit(function(e){
+	e.preventDefault();
+
+	let data = $(this).serialize();
+	addAndListMovies(data);
 });

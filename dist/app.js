@@ -63,25 +63,41 @@
 	var $moviesForm = $("#movies-form"); /*jshint esnext: true */
 	/* global $*/
 
+	function listMovies() {
+		var getMovie = new _simpleAjax2.default({
+			url: "views/movie.php",
+			method: "GET"
+		});
+
+		getMovie.on("success", function (event) {
+			$("#movies-list").replaceWith(event.target.response);
+		}).on("error", console.error).send();
+	};
+
 	var url = $moviesForm.attr("action");
 	var method = $moviesForm.attr("method");
 
-	$moviesForm.submit(function (e) {
-		e.preventDefault();
-
-		var data = $(this).serialize();
-
-		var ajax = new _simpleAjax2.default({
+	function addAndListMovies(data) {
+		var postMovie = new _simpleAjax2.default({
 			url: url,
 			method: method,
 			data: data,
 			contentType: "application/x-www-form-urlencoded"
 		});
 
-		ajax.on("success", function (event) {
+		postMovie.on("success", function (event) {
 			console.log(event.target.response);
-			$("body").append(event.target.response);
-		}).on("error", console.error).send();
+		}).on("error", console.error).on("complete", function () {
+			$moviesForm[0].reset();
+			listMovies();
+		}).send();
+	}
+
+	$moviesForm.submit(function (e) {
+		e.preventDefault();
+
+		var data = $(this).serialize();
+		addAndListMovies(data);
 	});
 
 /***/ },

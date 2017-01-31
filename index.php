@@ -35,59 +35,9 @@ require_once "php/dbconnection.php";
 
 <body>
 
-	<div class="app">
-
-		<!-- temp example -->
-		<!--<article class="movie">
-			<section class="movie__banner">
-				<div class="banner__rank"><p>12</p></div>
-				<div class="banner__title"><p>Monty Python and the Holy Grail</p></div>
-				<div class="banner__imdb">97</div>
-			</section>
-
-			<section class="movie__details">
-				<div class="details__poster">
-					<img src="https://images-na.ssl-images-amazon.com/images/M/MV5BYzgyYzc4Y2QtNDcyZS00NDdmLWI5ZTYtMTQ2YWU5MWFhOTE4XkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg" alt="Poster not found!" title="Monty Python and the Holy Grail">
-				</div>
-				<div class="details__review">
-					<p>
-					Most comedies don't age well -- the jokes, gags, and even the actors all become dated; that can't be said of "Monty Python and the Holy Grail", which is still every bit as hilarious.
-					</p>
-				</div>
-			</section>
-		</article>-->
-
-
-		<?php
-		include_once "php/moviesClass.php";
-		\samvk\Movies::forevery(function ($error, $movie) {
-			if ($error) {
-				echo "<div><p class='bold'>Time to add your first movie!</p></div>";
-				return;
-			}
-			echo
-				"<article class='movie' style='outline: 4px dashed red'>
-					<section class='movie__banner'>
-						<div class='banner__id'><p>{$movie['id']}<//div>
-						<div class='banner__rank'><p>{$movie['rank']}<//div>
-						<div class='banner__title'><p>{$movie['title']}</p></div>
-						<div class='banner__imdb'>{$movie['imdb']}</div>
-					</section>
-
-					<section class='movie__details'>
-						<div class='details__poster'>
-							<img src='{$movie['poster']}' alt='Poster not found!' title='{$movie['title']}'>
-					</div>
-					<div class='details__review'>
-						<p>{$movie['review']}</p>
-					</div>
-					</section>
-				</article>";
-		});
-		?>
-
-
-	</div>
+	<?php
+	include_once "views/movie.php";
+	?>
 
 	<div class="submit">
 		<form id="movies-form" action="php/moviesForm.php" method="post">
