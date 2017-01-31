@@ -66,9 +66,6 @@
 	var url = $moviesForm.attr("action");
 	var method = $moviesForm.attr("method");
 
-	//let data = {};
-
-
 	$moviesForm.submit(function (e) {
 		e.preventDefault();
 
@@ -77,21 +74,14 @@
 		var ajax = new _simpleAjax2.default({
 			url: url,
 			method: method,
-			data: data
+			data: data,
+			contentType: "application/x-www-form-urlencoded"
 		});
 
 		ajax.on("success", function (event) {
-			console.log(event);
-			console.log(event.response);
-			console.log(event.responseText);
-		}).on("error", function (event) {
-			console.log("error");
-			console.table(event);
-		}).on("complete", function (event) {
-			console.log("complete");
-			console.log(event.response);
-			console.log(event.responseText);
-		}).send();
+			console.log(event.target.response);
+			$("body").append(event.target.response);
+		}).on("error", console.error).send();
 	});
 
 /***/ },

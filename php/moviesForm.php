@@ -12,6 +12,7 @@ if ( $_SERVER["REQUEST_METHOD"] == "POST" ){
 
 echo "<br><a href='https://localhost/myMDB/'>GO HOME</a>";
 
+
 if ( empty($title) || ( empty($review) && $action =="insert" ) ) {
 	echo "<p class='loud'>Oops! you left some required fields blank.</p>";
 	exit;
