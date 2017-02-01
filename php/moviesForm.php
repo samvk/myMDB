@@ -27,6 +27,7 @@ if ($action == "insert") {
 	Movies::update($title, $review);
 }
 
+exit;
 
 //Need error handling.
 //Also need a script to get (read) movies

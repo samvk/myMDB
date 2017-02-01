@@ -25,10 +25,10 @@ class Movies {
 	}
 
 	//READ
-	public static function forevery($callback) {
+	public static function forevery($callback, $order = "id") {
 		global $db;
 
-		$stmt = $db->query("SELECT * FROM movies");
+		$stmt = $db->query("SELECT * FROM movies ORDER BY $order");
 		$movies = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 		if (!$movies) {

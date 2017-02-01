@@ -63,16 +63,16 @@
 	var $moviesForm = $("#movies-form"); /*jshint esnext: true */
 	/* global $*/
 
-	function listMovies() {
+	function listMovies(data) {
 		var getMovie = new _simpleAjax2.default({
-			url: "views/movie.php",
+			url: "views/echoMovies.php?" + data,
 			method: "GET"
 		});
 
 		getMovie.on("success", function (event) {
 			$("#movies-list").replaceWith(event.target.response);
 		}).on("error", console.error).send();
-	};
+	}
 
 	var url = $moviesForm.attr("action");
 	var method = $moviesForm.attr("method");
@@ -89,7 +89,7 @@
 			console.log(event.target.response);
 		}).on("error", console.error).on("complete", function () {
 			$moviesForm[0].reset();
-			listMovies();
+			listMovies(data);
 		}).send();
 	}
 

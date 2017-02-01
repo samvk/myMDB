@@ -1,6 +1,4 @@
-<?php
-require_once "php/dbconnection.php";
-?>
+<?php require_once "php/dbconnection.php"; ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -35,9 +33,7 @@ require_once "php/dbconnection.php";
 
 <body>
 
-	<?php
-	include_once "views/movie.php";
-	?>
+	<?php include_once "views/echoMovies.php"; ?>
 
 	<div class="submit">
 		<form id="movies-form" action="php/moviesForm.php" method="post">
@@ -46,6 +42,10 @@ require_once "php/dbconnection.php";
 			<p><label><input type="radio" name="action" value="insert" checked>Add</label></p>
 			<p><label><input type="radio" name="action" value="delete">Delete</label></p>
 			<p><label><input type="radio" name="action" value="update">Update</label></p>
+			<hr>
+			<p><label><input type="radio" name="order" value="id">Added</label></p>
+			<p><label><input type="radio" name="order" value="title">Title</label></p>
+			<p><label><input type="radio" name="order" value="review">Review</label></p>
 			<button type="submit">Run</button>
 		</form>
 	</div>
