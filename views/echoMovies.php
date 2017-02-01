@@ -2,9 +2,11 @@
 include_once __DIR__ . "/../php/moviesClass.php";
 
 $order = $_GET["order"] ?? "id";
+$by = $_GET["by"] ?? "ASC";
 
 function echoMovies() {
 	global $order;
+	global $by;
 
 	\samvk\Movies::forevery(function ($error, $movie) {
 		if ($error) {
@@ -29,7 +31,7 @@ function echoMovies() {
 				</div>
 				</section>
 			</article>";
-	}, $order);
+	}, $order, $by);
 }
 
 echo "<div id='movies-list'>";

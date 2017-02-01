@@ -25,10 +25,16 @@ class Movies {
 	}
 
 	//READ
-	public static function forevery($callback, $order = "id") {
+	public static function forevery($callback, $order = "id", $by = "ASC") {
 		global $db;
 
-		$stmt = $db->query("SELECT * FROM movies ORDER BY $order");
+		//validation
+		if ( !preg_match('/id|title|review/', $order) || !preg_match('/ASC|DESC/', $by) ) {
+			echo "You cannot send this value.";
+			exit;
+		}
+
+		$stmt = $db->query("SELECT * FROM movies ORDER BY $order $by");
 		$movies = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 		if (!$movies) {
