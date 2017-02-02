@@ -8,7 +8,7 @@ const $moviesForm = $("#movies-form");
 function listMovies(data) {
 	let getMovie = new Ajax({
 		url: `views/echoMovies.php?${data}`,
-		method: "GET",
+		method: "GET"
 	});
 
 	getMovie.on("success", event => {

@@ -65,8 +65,9 @@
 
 	function listMovies(data) {
 		var getMovie = new _simpleAjax2.default({
-			url: "views/echoMovies.php?" + data,
-			method: "GET"
+			url: "views/echoMovies.php",
+			method: "GET",
+			data: { order: "title", by: "DESC" }
 		});
 
 		getMovie.on("success", function (event) {
