@@ -1,0 +1,19 @@
+>>> Sass is watching for changes. Press Ctrl-C to stop.
+>>> Change detected to: style.scss
+      write ../css/style.css
+      write ../css/style.css.map
+>>> Change detected to: style.scss
+      write ../css/style.css
+      write ../css/style.css.map
+>>> Change detected to: style.scss
+      write ../css/style.css
+      write ../css/style.css.map
+>>> Change detected to: style.scss
+      write ../css/style.css
+      write ../css/style.css.map
+>>> Change detected to: style.scss
+      write ../css/style.css
+      write ../css/style.css.map
+>>> Change detected to: style.scss
+      write ../css/style.css
+      write ../css/style.css.map

@@ -65,9 +65,8 @@
 
 	function listMovies(data) {
 		var getMovie = new _simpleAjax2.default({
-			url: "views/echoMovies.php",
-			method: "GET",
-			data: { order: "title", by: "DESC" }
+			url: "views/echoMovies.php?" + data,
+			method: "GET"
 		});
 
 		getMovie.on("success", function (event) {
@@ -98,6 +97,8 @@
 		e.preventDefault();
 
 		var data = $(this).serialize();
+		console.log($(this).serialize());
+		console.log($(this).serializeArray());
 		addAndListMovies(data);
 	});
 
