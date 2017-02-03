@@ -97,8 +97,6 @@
 		e.preventDefault();
 
 		var data = $(this).serialize();
-		console.log($(this).serialize());
-		console.log($(this).serializeArray());
 		addAndListMovies(data);
 	});
 
