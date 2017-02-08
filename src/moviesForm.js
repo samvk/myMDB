@@ -43,3 +43,83 @@ $moviesForm.submit(function(e){
 	let data = $(this).serialize();
 	addAndListMovies(data);
 });
+
+/*let options = {
+	title: "",
+	review: "",
+	rank: "",
+	imdb: "",
+	id: ""
+};
+
+
+
+static add(options) {
+	if ( !options.title ) {
+		throw Error("You must supply a movie title.");
+	}
+	let action = "insert";
+
+	let title = options.title;
+	let review = options.review || "Review coming soon.";
+	let rank = options.rank || "66";
+	let imdb = options.imdb || "95";
+	let id = id;
+
+	return $.post({
+
+	});
+
+}*/
+
+class Movies {
+	//create
+	static add(options = {}) {
+		let defaults = {
+			action: "insert",
+			review: "Review coming soon.",
+			rank: "66",
+			imdb: "95",
+			poster: "http://i.imgur.com/Z8QwU19.png"
+			id: "30"
+		};
+
+		let data = Object.assign({}, defaults, options)
+
+		return $.post({
+			url: "php/moviesForm.php",
+			type: "POST",
+			data: data
+		});
+
+	}
+	//update
+	static edit(movieId, options = {}) {
+		let defaults = {
+			action: "update",
+			id: movieId
+		};
+
+		let data = Object.assign({}, defaults, options)
+
+		return $.post({
+			url: "php/moviesForm.php",
+			type: "POST",
+			data: data
+		});
+
+	}
+	//remove
+	static remove(movieId) {
+		let data = {
+			action: "delete",
+			id: movieId
+		};
+
+		return $.post({
+			url: "php/moviesForm.php",
+			type: "POST",
+			data: data
+		});
+	}
+}

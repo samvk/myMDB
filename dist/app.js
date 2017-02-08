@@ -1,8 +1,52 @@
-!function(e){function t(s){if(n[s])return n[s].exports;var r=n[s]={exports:{},id:s,loaded:!1};return e[s].call(r.exports,r,r.exports,t),r.loaded=!0,r.exports}var n={};return t.m=e,t.c=n,t.p="",t(0)}([function(e,t,n){"use strict";n(1)},function(e,t,n){"use strict";function s(e){return e&&e.__esModule?e:{default:e}}function r(e){var t=new u.default({url:"views/echoMovies.php?"+e,method:"GET"});t.on("success",function(e){$("#movies-list").replaceWith(e.target.response)}).on("error",console.error).send()}function i(e){var t=new u.default({url:c,method:f,data:e,contentType:"application/x-www-form-urlencoded"});t.on("success",function(e){console.log(e.target.response)}).on("error",console.error).on("complete",function(){a[0].reset(),r(e)}).send()}var o=n(3),u=s(o),a=$("#movies-form"),c=a.attr("action"),f=a.attr("method");a.submit(function(e){e.preventDefault();var t=$(this).serialize();i(t)})},,function(e,t,n){"use strict";function s(e){try{return JSON.parse(e)}catch(e){return e}}function r(){this.request.abort(),this.emit("timeout")}function i(e){var t,n=this;if("string"==typeof e&&(e={url:e}),"object"!==("undefined"==typeof e?"undefined":o(e))&&(e={}),n.settings=e,n.request=new XMLHttpRequest,n.settings.method=n.settings.method||"get",n.settings.cors&&!1 in n.request&&("undefined"!=typeof XDomainRequest?n.request=new XDomainRequest:n.emit("error",new Error("Cors is not supported by this browser"))),n.settings.cache===!1&&(n.settings.data=n.settings.data||{},n.settings.data._=(new Date).getTime()),"get"===n.settings.method.toLowerCase()&&"object"===o(n.settings.data)){var r=n.settings.url.split("?");t=a.parse(r[1]);for(var i in n.settings.data)t[i]=n.settings.data[i];var u=a.stringify(t);n.settings.url=r[0]+(u?"?"+u:""),n.settings.data=null}n.request.addEventListener("progress",function(e){n.emit("progress",e)},!1),n.request.addEventListener("load",function(e){var t=e.target.responseText;if(n.settings.dataType&&"json"===n.settings.dataType.toLowerCase())if(""===t)t=void 0;else if(t=s(t),t instanceof Error)return void n.emit("error",e,t);e.target.status>=400?n.emit("error",e,t):n.emit("success",e,t)},!1),n.request.addEventListener("error",function(e){n.emit("error",e)},!1),n.request.addEventListener("abort",function(e){n.emit("error",e,new Error("Connection Aborted")),n.emit("abort",e)},!1),n.request.addEventListener("loadend",function(e){clearTimeout(n._requestTimeout),n.emit("complete",e)},!1),n.request.open(n.settings.method||"get",n.settings.url,!0),n.settings.cors&&"withCredentials"in n.request&&(n.request.withCredentials=!!e.withCredentials),n.settings.contentType!==!1&&n.request.setRequestHeader("Content-Type",n.settings.contentType||"application/json; charset=utf-8"),n.settings.requestedWith!==!1&&n.request.setRequestHeader("X-Requested-With",n.settings.requestedWith||"XMLHttpRequest"),n.settings.auth&&n.request.setRequestHeader("Authorization",n.settings.auth);for(var c in n.settings.headers)n.request.setRequestHeader(c,n.settings.headers[c]);n.settings.processData!==!1&&"json"===n.settings.dataType&&(n.settings.data=JSON.stringify(n.settings.data))}var o="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e},u=n(4).EventEmitter,a=n(5);i.prototype=Object.create(u.prototype),i.prototype.send=function(){var e=this;e._requestTimeout=setTimeout(function(){r.apply(e,[])},e.settings.timeout||12e4),e.request.send(e.settings.data&&e.settings.data)},e.exports=i},function(e,t){"use strict";function n(){this._events=this._events||{},this._maxListeners=this._maxListeners||void 0}function s(e){return"function"==typeof e}function r(e){return"number"==typeof e}function i(e){return"object"===("undefined"==typeof e?"undefined":u(e))&&null!==e}function o(e){return void 0===e}var u="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e};e.exports=n,n.EventEmitter=n,n.prototype._events=void 0,n.prototype._maxListeners=void 0,n.defaultMaxListeners=10,n.prototype.setMaxListeners=function(e){if(!r(e)||e<0||isNaN(e))throw TypeError("n must be a positive number");return this._maxListeners=e,this},n.prototype.emit=function(e){var t,n,r,u,a,c;if(this._events||(this._events={}),"error"===e&&(!this._events.error||i(this._events.error)&&!this._events.error.length)){if(t=arguments[1],t instanceof Error)throw t;var f=new Error('Uncaught, unspecified "error" event. ('+t+")");throw f.context=t,f}if(n=this._events[e],o(n))return!1;if(s(n))switch(arguments.length){case 1:n.call(this);break;case 2:n.call(this,arguments[1]);break;case 3:n.call(this,arguments[1],arguments[2]);break;default:u=Array.prototype.slice.call(arguments,1),n.apply(this,u)}else if(i(n))for(u=Array.prototype.slice.call(arguments,1),c=n.slice(),r=c.length,a=0;a<r;a++)c[a].apply(this,u);return!0},n.prototype.addListener=function(e,t){var r;if(!s(t))throw TypeError("listener must be a function");return this._events||(this._events={}),this._events.newListener&&this.emit("newListener",e,s(t.listener)?t.listener:t),this._events[e]?i(this._events[e])?this._events[e].push(t):this._events[e]=[this._events[e],t]:this._events[e]=t,i(this._events[e])&&!this._events[e].warned&&(r=o(this._maxListeners)?n.defaultMaxListeners:this._maxListeners,r&&r>0&&this._events[e].length>r&&(this._events[e].warned=!0,console.error("(node) warning: possible EventEmitter memory leak detected. %d listeners added. Use emitter.setMaxListeners() to increase limit.",this._events[e].length),"function"==typeof console.trace&&console.trace())),this},n.prototype.on=n.prototype.addListener,n.prototype.once=function(e,t){function n(){this.removeListener(e,n),r||(r=!0,t.apply(this,arguments))}if(!s(t))throw TypeError("listener must be a function");var r=!1;return n.listener=t,this.on(e,n),this},n.prototype.removeListener=function(e,t){var n,r,o,u;if(!s(t))throw TypeError("listener must be a function");if(!this._events||!this._events[e])return this;if(n=this._events[e],o=n.length,r=-1,n===t||s(n.listener)&&n.listener===t)delete this._events[e],this._events.removeListener&&this.emit("removeListener",e,t);else if(i(n)){for(u=o;u-- >0;)if(n[u]===t||n[u].listener&&n[u].listener===t){r=u;break}if(r<0)return this;1===n.length?(n.length=0,delete this._events[e]):n.splice(r,1),this._events.removeListener&&this.emit("removeListener",e,t)}return this},n.prototype.removeAllListeners=function(e){var t,n;if(!this._events)return this;if(!this._events.removeListener)return 0===arguments.length?this._events={}:this._events[e]&&delete this._events[e],this;if(0===arguments.length){for(t in this._events)"removeListener"!==t&&this.removeAllListeners(t);return this.removeAllListeners("removeListener"),this._events={},this}if(n=this._events[e],s(n))this.removeListener(e,n);else if(n)for(;n.length;)this.removeListener(e,n[n.length-1]);return delete this._events[e],this},n.prototype.listeners=function(e){var t;return t=this._events&&this._events[e]?s(this._events[e])?[this._events[e]]:this._events[e].slice():[]},n.prototype.listenerCount=function(e){if(this._events){var t=this._events[e];if(s(t))return 1;if(t)return t.length}return 0},n.listenerCount=function(e,t){return e.listenerCount(t)}},function(e,t,n){var s;/*!
-		query-string
-		Parse and stringify URL query strings
-		https://github.com/sindresorhus/query-string
-		by Sindre Sorhus
-		MIT License
-	*/
-!function(){"use strict";var r={};r.parse=function(e){return"string"!=typeof e?{}:(e=e.trim().replace(/^(\?|#)/,""),e?e.trim().split("&").reduce(function(e,t){var n=t.replace(/\+/g," ").split("="),s=n[0],r=n[1];return s=decodeURIComponent(s),r=void 0===r?null:decodeURIComponent(r),e.hasOwnProperty(s)?Array.isArray(e[s])?e[s].push(r):e[s]=[e[s],r]:e[s]=r,e},{}):{})},r.stringify=function(e){return e?Object.keys(e).map(function(t){var n=e[t];return Array.isArray(n)?n.map(function(e){return encodeURIComponent(t)+"="+encodeURIComponent(e)}).join("&"):encodeURIComponent(t)+"="+encodeURIComponent(n)}).join("&"):""},s=function(){return r}.call(t,n,t,e),!(void 0!==s&&(e.exports=s))}()}]);
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId])
+/******/ 			return installedModules[moduleId].exports;
+
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			exports: {},
+/******/ 			id: moduleId,
+/******/ 			loaded: false
+/******/ 		};
+
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+
+/******/ 		// Flag the module as loaded
+/******/ 		module.loaded = true;
+
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+
+
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(0);
+/******/ })
+/************************************************************************/
+/******/ ([
+/* 0 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	__webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"moviesForm\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+
+/***/ }
+/******/ ]);
