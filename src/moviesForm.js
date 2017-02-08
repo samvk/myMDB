@@ -41,7 +41,5 @@ $moviesForm.submit(function(e){
 	e.preventDefault();
 
 	let data = $(this).serialize();
-	console.log($(this).serialize());
-	console.log($(this).serializeArray());
 	addAndListMovies(data);
 });

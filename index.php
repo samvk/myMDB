@@ -25,7 +25,7 @@
 
 	<style>
 		body {
-			background: lightgrey;
+			background: #EBEBEB;
 		}
 	</style>
 
