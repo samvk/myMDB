@@ -1,7 +1,7 @@
 /*jshint esnext: true */
 /* global $*/
 
-import Ajax from "simple-ajax";
+/*import Ajax from "simple-ajax";
 
 const $moviesForm = $("#movies-form");
 
@@ -12,7 +12,8 @@ function listMovies(data) {
 	});
 
 	getMovie.on("success", event => {
-		$("#movies-list").replaceWith(event.target.response);
+		//$("#movies-list").replaceWith(event.target.response);
+		$("#movies-list").html(event.target.response);
 	}).on("error", console.error
 	).send();
 }
@@ -42,7 +43,7 @@ $moviesForm.submit(function(e){
 
 	let data = $(this).serialize();
 	addAndListMovies(data);
-});
+});*/
 
 /*let options = {
 	title: "",
@@ -80,11 +81,12 @@ class Movies {
 			review: "Review coming soon.",
 			rank: "66",
 			imdb: "95",
-			poster: "http://i.imgur.com/Z8QwU19.png"
+			poster: "http://i.imgur.com/Z8QwU19.png",
 			id: "30"
 		};
 
-		let data = Object.assign({}, defaults, options)
+		let data = Object.assign({}, defaults, options);
+		console.log(data);
 
 		return $.post({
 			url: "php/moviesForm.php",
@@ -100,7 +102,8 @@ class Movies {
 			id: movieId
 		};
 
-		let data = Object.assign({}, defaults, options)
+		let data = Object.assign({}, defaults, options);
+
 
 		return $.post({
 			url: "php/moviesForm.php",
@@ -123,3 +126,70 @@ class Movies {
 		});
 	}
 }
+
+
+
+import serialize from "form-serialize";
+
+const $moviesForm = $("#movies-form");
+
+$moviesForm.submit(function(e){
+	e.preventDefault();
+
+	let data = serialize($moviesForm[0], {hash: true});
+
+	Movies.add(data);
+});
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+function listMovies(data) {
+	let getMovie = new Ajax({
+		url: `views/echoMovies.php?${data}`,
+		method: "GET"
+	});
+
+	getMovie.on("success", event => {
+		//$("#movies-list").replaceWith(event.target.response);
+		$("#movies-list").html(event.target.response);
+	}).on("error", console.error
+		 ).send();
+}
+
+const url = $moviesForm.attr("action");
+const method = $moviesForm.attr("method");
+
+function addAndListMovies(data){
+	let postMovie = new Ajax({
+		url: url,
+		method: method,
+		data: data,
+		contentType: "application/x-www-form-urlencoded"
+	});
+
+	postMovie.on("success", event => {
+		console.log(event.target.response);
+	}).on("error", console.error
+		 ).on("complete", ()=> {
+		$moviesForm[0].reset();
+		listMovies(data);
+	}).send();
+}
+
+$moviesForm.submit(function(e){
+	e.preventDefault();
+
+	let data = $(this).serialize();
+	addAndListMovies(data);
+});
+*/

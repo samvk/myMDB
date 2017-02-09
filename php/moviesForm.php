@@ -5,9 +5,9 @@ if ( $_SERVER["REQUEST_METHOD"] == "POST" ){
 	$review = trim($_POST["review"]) ?? "";
 	$action = $_POST["action"] ?? "";
 	//temp values
-	$imdb = "N/A"; //might need to change type from INT to DECIMAL (or similar)
-	$poster = "https://images-na.ssl-images-amazon.com/images/M/MV5BYzgyYzc4Y2QtNDcyZS00NDdmLWI5ZTYtMTQ2YWU5MWFhOTE4XkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg";
-	$rank = "6";
+	$imdb = "99"; //might need to change type from INT to DECIMAL (or similar)
+	$poster = "http://i.imgur.com/kvNi7Hj.png";
+	$rank = "11";
 }
 
 if ( empty($title) || ( empty($review) && $action =="insert" ) ) {

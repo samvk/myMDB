@@ -32,8 +32,9 @@
 </head>
 
 <body>
-
-	<?php include_once "views/echoMovies.php"; ?>
+	<div id="movies-list">
+		<?php include_once "views/echoMovies.php"; ?>
+	</div>
 
 	<div class="submit">
 		<form id="movies-form" action="php/moviesForm.php" method="post">
