@@ -217,6 +217,7 @@
 
 		$moviesForm[0].reset();
 		var data = (0, _formSerialize2.default)($moviesForm[0], { hash: true });
+		console.log(data);
 		Movies.add(data);
 	});
 

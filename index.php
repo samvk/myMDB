@@ -41,8 +41,6 @@
 			<p><label><input type="text" name="title"></label></p>
 			<p><label><textarea name="review"></textarea></label></p>
 			<p><label><input type="radio" name="action" value="insert" checked>Add</label></p>
-			<p><label><input type="radio" name="action" value="delete">Delete</label></p>
-			<p><label><input type="radio" name="action" value="update">Update</label></p>
 			<hr>
 			<p><label><input type="radio" name="order" value="id">Added</label></p>
 			<p><label><input type="radio" name="order" value="title">Title</label></p>

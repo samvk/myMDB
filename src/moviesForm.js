@@ -138,6 +138,7 @@ $moviesForm.submit(function(e){
 
 	$moviesForm[0].reset();
 	let data = serialize($moviesForm[0], {hash: true});
+	console.log(data);
 	Movies.add(data);
 });
 
