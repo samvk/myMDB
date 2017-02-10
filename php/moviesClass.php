@@ -47,29 +47,29 @@ class Movies {
 	}
 
 	//UPDATE
-	public static function update($title, $review){
+	public static function update($movieId, $review){
 		global $db;
 
 		$stmt = $db->prepare(
 			"UPDATE movies
 			SET review = :review
-			WHERE title = :title"
+			WHERE id = :movieId"
 		);
 		$stmt->execute([
 			":review" => $review,
-			":title" => $title
+			":movieId" => $movieId
 		]);
 	}
 
 	//DELETE
-	public static function delete($title) {
+	public static function delete($movieId) {
 		global $db;
 
 		$stmt = $db->prepare(
 			"DELETE FROM movies
-			WHERE title = ?"
+			WHERE id = ?"
 		);
 
-		$stmt->execute([$title]);
+		$stmt->execute([$movieId]);
 	}
 }

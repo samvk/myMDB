@@ -81,8 +81,8 @@ class Movies {
 			review: "Review coming soon.",
 			rank: "66",
 			imdb: "95",
-			poster: "http://i.imgur.com/Z8QwU19.png",
-			id: "30"
+			poster: "https://i.imgur.com/Z8QwU19.png",
+			movieId: "30"
 		};
 
 		let data = Object.assign({}, defaults, options);
@@ -99,7 +99,7 @@ class Movies {
 	static edit(movieId, options = {}) {
 		let defaults = {
 			action: "update",
-			id: movieId
+			movieId: movieId
 		};
 
 		let data = Object.assign({}, defaults, options);
@@ -113,10 +113,10 @@ class Movies {
 
 	}
 	//remove
-	static remove(movieId) {
+	static delete(movieId) {
 		let data = {
 			action: "delete",
-			id: movieId
+			movieId: movieId
 		};
 
 		return $.post({
@@ -136,15 +136,29 @@ const $moviesForm = $("#movies-form");
 $moviesForm.submit(function(e){
 	e.preventDefault();
 
+	$moviesForm[0].reset();
 	let data = serialize($moviesForm[0], {hash: true});
-
 	Movies.add(data);
 });
 
 
+function movieEl(elAttr){
+	return $(this).closest('article.movie').find(elAttr).text();;
+}
 
+$('[data-action="edit"]').click(function(){
+	let movieId = movieEl.call(this, '.banner__id');
+	let options = {
+		review: 'PHP currently only accepts review. PHP needs to be rewitten to take these values as an associative array I think.'
+	};
+	//PHP currently only accepts review. PHP needs to be rewitten to take these values as an associative array I think.
+	Movies.edit(movieId, options);
+});
 
-
+$('[data-action="delete"]').click(function(){
+	let movieId = movieEl.call(this, '.banner__id');
+	Movies.delete(movieId);
+});
 
 
 

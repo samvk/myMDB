@@ -16,10 +16,10 @@ function echoMovies() {
 		echo
 			"<article class='movie' style='outline: 4px dashed red; display: flex'>
 				<section class='movie__banner'>
-					<div class='banner__id'><p>{$movie['id']}[id]</div>
-					<div class='banner__rank'><p>{$movie['rank']}[rank]</div>
-					<div class='banner__title'><p>{$movie['title']}</p></div>
-					<div class='banner__imdb'>{$movie['imdb']}[imdb]</div>
+					id:<div class='banner__id'><p>{$movie['id']}</div>
+					rank:<div class='banner__rank'><p>{$movie['rank']}</div>
+					title:<div class='banner__title'><p>{$movie['title']}</div>
+					imdb:<div class='banner__imdb'>{$movie['imdb']}</div>
 				</section>
 
 				<section class='movie__details'>

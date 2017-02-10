@@ -56,7 +56,7 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _formSerialize = __webpack_require__(5);
+	var _formSerialize = __webpack_require__(2);
 
 	var _formSerialize2 = _interopRequireDefault(_formSerialize);
 
@@ -156,8 +156,8 @@
 					review: "Review coming soon.",
 					rank: "66",
 					imdb: "95",
-					poster: "http://i.imgur.com/Z8QwU19.png",
-					id: "30"
+					poster: "https://i.imgur.com/Z8QwU19.png",
+					movieId: "30"
 				};
 
 				var data = Object.assign({}, defaults, options);
@@ -178,7 +178,7 @@
 
 				var defaults = {
 					action: "update",
-					id: movieId
+					movieId: movieId
 				};
 
 				var data = Object.assign({}, defaults, options);
@@ -192,11 +192,11 @@
 			//remove
 
 		}, {
-			key: "remove",
-			value: function remove(movieId) {
+			key: "delete",
+			value: function _delete(movieId) {
 				var data = {
 					action: "delete",
-					id: movieId
+					movieId: movieId
 				};
 
 				return $.post({
@@ -215,9 +215,27 @@
 	$moviesForm.submit(function (e) {
 		e.preventDefault();
 
+		$moviesForm[0].reset();
 		var data = (0, _formSerialize2.default)($moviesForm[0], { hash: true });
-
 		Movies.add(data);
+	});
+
+	function movieEl(elAttr) {
+		return $(this).closest('article.movie').find(elAttr).text();;
+	}
+
+	$('[data-action="edit"]').click(function () {
+		var movieId = movieEl.call(this, '.banner__id');
+		var options = {
+			review: 'PHP currently only accepts review. PHP needs to be rewitten to take these values as an associative array I think.'
+		};
+		//PHP currently only accepts review. PHP needs to be rewitten to take these values as an associative array I think.
+		Movies.edit(movieId, options);
+	});
+
+	$('[data-action="delete"]').click(function () {
+		var movieId = movieEl.call(this, '.banner__id');
+		Movies.delete(movieId);
 	});
 
 	/*
@@ -263,10 +281,7 @@
 	*/
 
 /***/ },
-/* 2 */,
-/* 3 */,
-/* 4 */,
-/* 5 */
+/* 2 */
 /***/ function(module, exports) {
 
 	'use strict';
