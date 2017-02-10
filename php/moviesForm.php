@@ -3,24 +3,31 @@
 if ( $_SERVER["REQUEST_METHOD"] == "POST" ){
 	$action = $_POST["action"] ?? "";
 	$movieId = trim($_POST["movieId"]) ?? "";
-	$title = trim($_POST["title"]) ?? "";
-	$review = trim($_POST["review"]) ?? "";
+	$movieData = array_map('trim', $_POST["movieData"]);
+
 	//temp values
-	$imdb = "99"; //might need to change type from INT to DECIMAL (or similar)
-	$poster = "https://i.imgur.com/kvNi7Hj.png";
-	$rank = "11";
+	$movieData["imdb"] = "99"; //might need to change type from INT to DECIMAL (or similar)
+	$movieData["poster"] = "https://i.imgur.com/kvNi7Hj.png";
+	$movieData["rank"] = "11";
 }
 
+if ( empty($movieData["title"]) || empty($movieData["review"]) ) {
+	echo "Something went wrong. Please refresh.";
+	exit;
+}
+echo implode($movieData, ', ')
 include "moviesClass.php";
 
 use \samvk\Movies;
 
 if ($action == "insert") {
-	Movies::insert($title, $review, $imdb, $poster, $rank);
+	//Movies::insert($title, $review, $imdb, $poster, $rank);
+	Movies::insert($movieData);
 } elseif ($action == "delete") {
 	Movies::delete($movieId);
 } elseif ($action == "update") {
-	Movies::update($movieId, $review);
+	//Movies::update($movieId, $movieData["review"]);
+	Movies::update($movieId, $movieData);
 }
 
 exit;

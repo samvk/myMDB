@@ -7,7 +7,7 @@ require_once "dbconnection.php";
 class Movies {
 
 	//CREATE
-	public static function insert($title, $review, $imdb, $poster, $rank) {
+	public static function insert($movieData) {
 		global $db;
 
 		$stmt = $db->prepare(
@@ -16,11 +16,11 @@ class Movies {
 		);
 
 		$stmt->execute([
-			":title" => $title,
-			":review" => $review,
-			":imdb" => $imdb,
-			":poster" => $poster,
-			":rank" => $rank
+			":title" => $movieData["title"],
+			":review" => $movieData["review"],
+			":imdb" => $movieData["imdb"],
+			":poster" => $movieData["poster"],
+			":rank" => $movieData["rank"]
 		]);
 	}
 
@@ -47,7 +47,7 @@ class Movies {
 	}
 
 	//UPDATE
-	public static function update($movieId, $review){
+	public static function update($movieId, $movieData){
 		global $db;
 
 		$stmt = $db->prepare(

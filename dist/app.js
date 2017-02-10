@@ -149,18 +149,12 @@
 
 			//create
 			value: function add() {
-				var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+				var movieData = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
-				var defaults = {
+				var data = {
 					action: "insert",
-					review: "Review coming soon.",
-					rank: "66",
-					imdb: "95",
-					poster: "https://i.imgur.com/Z8QwU19.png",
-					movieId: "30"
+					movieData: movieData
 				};
-
-				var data = Object.assign({}, defaults, options);
 				console.log(data);
 
 				return $.post({
@@ -176,12 +170,10 @@
 			value: function edit(movieId) {
 				var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
-				var defaults = {
+				var data = {
 					action: "update",
 					movieId: movieId
 				};
-
-				var data = Object.assign({}, defaults, options);
 
 				return $.post({
 					url: "php/moviesForm.php",
@@ -215,10 +207,10 @@
 	$moviesForm.submit(function (e) {
 		e.preventDefault();
 
-		$moviesForm[0].reset();
 		var data = (0, _formSerialize2.default)($moviesForm[0], { hash: true });
-		console.log(data);
 		Movies.add(data);
+
+		$moviesForm[0].reset();
 	});
 
 	function movieEl(elAttr) {

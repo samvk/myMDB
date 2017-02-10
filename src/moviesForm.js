@@ -75,17 +75,11 @@ static add(options) {
 
 class Movies {
 	//create
-	static add(options = {}) {
-		let defaults = {
+	static add(movieData = {}) {
+		let data = {
 			action: "insert",
-			review: "Review coming soon.",
-			rank: "66",
-			imdb: "95",
-			poster: "https://i.imgur.com/Z8QwU19.png",
-			movieId: "30"
+			movieData: movieData
 		};
-
-		let data = Object.assign({}, defaults, options);
 		console.log(data);
 
 		return $.post({
@@ -97,13 +91,10 @@ class Movies {
 	}
 	//update
 	static edit(movieId, options = {}) {
-		let defaults = {
+		let data = {
 			action: "update",
 			movieId: movieId
-		};
-
-		let data = Object.assign({}, defaults, options);
-
+		}
 
 		return $.post({
 			url: "php/moviesForm.php",
@@ -136,10 +127,10 @@ const $moviesForm = $("#movies-form");
 $moviesForm.submit(function(e){
 	e.preventDefault();
 
-	$moviesForm[0].reset();
 	let data = serialize($moviesForm[0], {hash: true});
-	console.log(data);
 	Movies.add(data);
+
+	$moviesForm[0].reset();
 });
 
 
