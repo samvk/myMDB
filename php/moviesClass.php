@@ -2,7 +2,7 @@
 namespace samvk;
 use \PDO;
 
-require_once "dbconnection.php";
+require_once 'dbconnection.php';
 
 class Movies {
 
@@ -11,16 +11,16 @@ class Movies {
 		global $db;
 
 		$stmt = $db->prepare(
-			"INSERT INTO movies(title, review, imdb, poster, rank)
-			VALUES (:title, :review, :imdb, :poster, :rank)"
+			'INSERT INTO movies(title, review, imdb, poster, rank)
+			VALUES (:title, :review, :imdb, :poster, :rank)'
 		);
 
 		$stmt->execute([
-			":title" => $movieData["title"],
-			":review" => $movieData["review"],
-			":imdb" => $movieData["imdb"],
-			":poster" => $movieData["poster"],
-			":rank" => $movieData["rank"]
+			':title' => $movieData['title'],
+			':review' => $movieData['review'],
+			':imdb' => $movieData['imdb'],
+			':poster' => $movieData['poster'],
+			':rank' => $movieData['rank']
 		]);
 	}
 
@@ -30,7 +30,7 @@ class Movies {
 
 		//validation
 		if ( !preg_match('/id|title|review/', $order) || !preg_match('/ASC|DESC/', $by) ) {
-			echo "You cannot send this value.";
+			echo 'You cannot send this value.';
 			exit;
 		}
 
@@ -50,15 +50,36 @@ class Movies {
 	public static function update($movieId, $movieData){
 		global $db;
 
-		$stmt = $db->prepare(
-			"UPDATE movies
-			SET review = :review
-			WHERE id = :movieId"
-		);
-		$stmt->execute([
-			":review" => $review,
-			":movieId" => $movieId
-		]);
+		if ($movieData['title']) {
+			$stmt = $db->prepare(
+				'UPDATE movies SET title = ? WHERE id = ?'
+			);
+			$stmt->execute([$movieData['title'], $movieId]);
+		}
+		if ($movieData['review']) {
+			$stmt = $db->prepare(
+				'UPDATE movies SET review = ? WHERE id = ?'
+			);
+			$stmt->execute([$movieData['review'], $movieId]);
+		}
+		if ($movieData['imdb']) {
+			$stmt = $db->prepare(
+				'UPDATE movies SET imdb = ? WHERE id = ?'
+			);
+			$stmt->execute([$movieData['imdb'], $movieId]);
+		}
+		if ($movieData['poster']) {
+			$stmt = $db->prepare(
+				'UPDATE movies SET poster = ? WHERE id = ?'
+			);
+			$stmt->execute([$movieData['poster'], $movieId]);
+		}
+		if ($movieData['rank']) {
+			$stmt = $db->prepare(
+				'UPDATE movies SET rank = ? WHERE id = ?'
+			);
+			$stmt->execute([$movieData['rank'], $movieId]);
+		}
 	}
 
 	//DELETE
@@ -66,8 +87,8 @@ class Movies {
 		global $db;
 
 		$stmt = $db->prepare(
-			"DELETE FROM movies
-			WHERE id = ?"
+			'DELETE FROM movies
+			WHERE id = ?'
 		);
 
 		$stmt->execute([$movieId]);

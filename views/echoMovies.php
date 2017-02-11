@@ -29,7 +29,7 @@ function echoMovies() {
 				<div class='details__review'>
 					<p>{$movie['review']}</p>
 				</div>
-				<button data-action='edit'>&#9998;</button>
+				<button data-action='show-edit'>&#9998;</button><form class='edit-form is-hidden'><input type='text' class='new-review'><button type='submit' data-action='show-edit'>Submit</button></form>
 				<button data-action='delete'>&#10006;</button>
 				</section>
 			</article>";

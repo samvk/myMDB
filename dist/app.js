@@ -54,7 +54,9 @@
 
 	"use strict";
 
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	var _moviesClass = __webpack_require__(3);
+
+	var _moviesClass2 = _interopRequireDefault(_moviesClass);
 
 	var _formSerialize = __webpack_require__(2);
 
@@ -62,216 +64,46 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
 	/*jshint esnext: true */
 	/* global $*/
 
-	/*import Ajax from "simple-ajax";
-
-	const $moviesForm = $("#movies-form");
-
-	function listMovies(data) {
-		let getMovie = new Ajax({
-			url: `views/echoMovies.php?${data}`,
-			method: "GET"
-		});
-
-		getMovie.on("success", event => {
-			//$("#movies-list").replaceWith(event.target.response);
-			$("#movies-list").html(event.target.response);
-		}).on("error", console.error
-		).send();
-	}
-
-	const url = $moviesForm.attr("action");
-	const method = $moviesForm.attr("method");
-
-	function addAndListMovies(data){
-		let postMovie = new Ajax({
-			url: url,
-			method: method,
-			data: data,
-			contentType: "application/x-www-form-urlencoded"
-		});
-
-		postMovie.on("success", event => {
-			console.log(event.target.response);
-		}).on("error", console.error
-			 ).on("complete", ()=> {
-			$moviesForm[0].reset();
-			listMovies(data);
-		}).send();
-	}
-
-	$moviesForm.submit(function(e){
-		e.preventDefault();
-
-		let data = $(this).serialize();
-		addAndListMovies(data);
-	});*/
-
-	/*let options = {
-		title: "",
-		review: "",
-		rank: "",
-		imdb: "",
-		id: ""
-	};
-
-
-
-	static add(options) {
-		if ( !options.title ) {
-			throw Error("You must supply a movie title.");
-		}
-		let action = "insert";
-
-		let title = options.title;
-		let review = options.review || "Review coming soon.";
-		let rank = options.rank || "66";
-		let imdb = options.imdb || "95";
-		let id = id;
-
-		return $.post({
-
-		});
-
-	}*/
-
-	var Movies = function () {
-		function Movies() {
-			_classCallCheck(this, Movies);
-		}
-
-		_createClass(Movies, null, [{
-			key: "add",
-
-			//create
-			value: function add() {
-				var movieData = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-
-				var data = {
-					action: "insert",
-					movieData: movieData
-				};
-				console.log(data);
-
-				return $.post({
-					url: "php/moviesForm.php",
-					type: "POST",
-					data: data
-				});
-			}
-			//update
-
-		}, {
-			key: "edit",
-			value: function edit(movieId) {
-				var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-
-				var data = {
-					action: "update",
-					movieId: movieId
-				};
-
-				return $.post({
-					url: "php/moviesForm.php",
-					type: "POST",
-					data: data
-				});
-			}
-			//remove
-
-		}, {
-			key: "delete",
-			value: function _delete(movieId) {
-				var data = {
-					action: "delete",
-					movieId: movieId
-				};
-
-				return $.post({
-					url: "php/moviesForm.php",
-					type: "POST",
-					data: data
-				});
-			}
-		}]);
-
-		return Movies;
-	}();
-
 	var $moviesForm = $("#movies-form");
+
+	//closest element grabber helper function
+	function movieEl(elAttr) {
+		return $(this).closest('article.movie').find(elAttr);
+	}
 
 	$moviesForm.submit(function (e) {
 		e.preventDefault();
 
-		var data = (0, _formSerialize2.default)($moviesForm[0], { hash: true });
-		Movies.add(data);
-
-		$moviesForm[0].reset();
+		var movieData = (0, _formSerialize2.default)($moviesForm[0], { hash: true });
+		_moviesClass2.default.add(movieData);
+		this.reset();
 	});
 
-	function movieEl(elAttr) {
-		return $(this).closest('article.movie').find(elAttr).text();;
-	}
+	$('[data-action="show-edit"]').click(function () {
+		var $editForm = movieEl.call(this, '.edit-form');
+		$editForm.toggleClass('is-hidden');
+	});
 
-	$('[data-action="edit"]').click(function () {
-		var movieId = movieEl.call(this, '.banner__id');
-		var options = {
-			review: 'PHP currently only accepts review. PHP needs to be rewitten to take these values as an associative array I think.'
+	$('.edit-form').submit(function (e) {
+		e.preventDefault();
+
+		var movieId = movieEl.call(this, '.banner__id').text();
+		var review = movieEl.call(this, '.new-review').val();
+		var movieData = {
+			review: review
 		};
 		//PHP currently only accepts review. PHP needs to be rewitten to take these values as an associative array I think.
-		Movies.edit(movieId, options);
+		_moviesClass2.default.edit(movieId, movieData);
+		this.reset();
 	});
 
 	$('[data-action="delete"]').click(function () {
 		var movieId = movieEl.call(this, '.banner__id');
-		Movies.delete(movieId);
+		_moviesClass2.default.delete(movieId);
 	});
-
-	/*
-	function listMovies(data) {
-		let getMovie = new Ajax({
-			url: `views/echoMovies.php?${data}`,
-			method: "GET"
-		});
-
-		getMovie.on("success", event => {
-			//$("#movies-list").replaceWith(event.target.response);
-			$("#movies-list").html(event.target.response);
-		}).on("error", console.error
-			 ).send();
-	}
-
-	const url = $moviesForm.attr("action");
-	const method = $moviesForm.attr("method");
-
-	function addAndListMovies(data){
-		let postMovie = new Ajax({
-			url: url,
-			method: method,
-			data: data,
-			contentType: "application/x-www-form-urlencoded"
-		});
-
-		postMovie.on("success", event => {
-			console.log(event.target.response);
-		}).on("error", console.error
-			 ).on("complete", ()=> {
-			$moviesForm[0].reset();
-			listMovies(data);
-		}).send();
-	}
-
-	$moviesForm.submit(function(e){
-		e.preventDefault();
-
-		let data = $(this).serialize();
-		addAndListMovies(data);
-	});
-	*/
 
 /***/ },
 /* 2 */
@@ -531,6 +363,85 @@
 	}
 
 	module.exports = serialize;
+
+/***/ },
+/* 3 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var Movies = function () {
+		function Movies() {
+			_classCallCheck(this, Movies);
+		}
+
+		_createClass(Movies, null, [{
+			key: "add",
+
+			//create
+			value: function add() {
+				var movieData = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+				var data = {
+					action: "insert",
+					movieData: movieData
+				};
+
+				return $.post({
+					url: "php/moviesForm.php",
+					type: "POST",
+					data: data
+				});
+			}
+			//update
+
+		}, {
+			key: "edit",
+			value: function edit(movieId) {
+				var movieData = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+				var data = {
+					action: "update",
+					movieId: movieId,
+					movieData: movieData
+				};
+
+				return $.post({
+					url: "php/moviesForm.php",
+					type: "POST",
+					data: data
+				});
+			}
+			//remove
+
+		}, {
+			key: "delete",
+			value: function _delete(movieId) {
+				var data = {
+					action: "delete",
+					movieId: movieId
+				};
+
+				return $.post({
+					url: "php/moviesForm.php",
+					type: "POST",
+					data: data
+				});
+			}
+		}]);
+
+		return Movies;
+	}();
+
+	exports.default = Movies;
 
 /***/ }
 /******/ ]);

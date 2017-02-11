@@ -11,11 +11,6 @@ if ( $_SERVER["REQUEST_METHOD"] == "POST" ){
 	$movieData["rank"] = "11";
 }
 
-if ( empty($movieData["title"]) || empty($movieData["review"]) ) {
-	echo "Something went wrong. Please refresh.";
-	exit;
-}
-echo implode($movieData, ', ')
 include "moviesClass.php";
 
 use \samvk\Movies;
